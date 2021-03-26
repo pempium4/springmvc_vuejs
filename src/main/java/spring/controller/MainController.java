@@ -31,7 +31,7 @@ public class MainController {
     }
 
     @PostMapping
-    public void create(@RequestBody @Valid Note note,
+    public void create(@RequestBody Note note,
                        BindingResult bindingResult){
         if(!bindingResult.hasErrors()){
             noteDAO.save(note);
