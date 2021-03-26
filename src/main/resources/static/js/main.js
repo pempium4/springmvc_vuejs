@@ -1,25 +1,24 @@
-let notesAPI = Vue.resource('/notes{/id}');
-
-Vue.component('message-row',{
-    props: ['message'],
-    template: '<p class="col-lg-3 col-md-4 col-sm-6 col-xs-12 card btn btn-dark bg-dark testButton">{{ message.id }} {{message.title}}<br/>{{ message.description }}</p>'
-})
-Vue.component('messages-list', {
-    props: ['messages'],
-    template: '<div><message-row v-for="message in messages" :key="message.id" :message="message"/></div>',
-    created: function (){
-        notesAPI.get().then(result =>
-            result.json().then(data =>
-                data.forEach(message => this.messages.push(message))
-            )
-        )
-    }
-})
-
-var app = new Vue({
-    el: '#app',
-    template: '<messages-list :messages="messages"/>',
-    data: {
-        messages: []
-    }
-})
+$('#trigger').click(function (){
+    form.save();
+});
+$('#target input').click(function (){
+    $('#target textarea').show(500).css("display", "inline-block");
+    $('#trigger').css("display", "block");
+});
+/*$('.testButton').click(function (){
+    let noteId = $(this).data('id');
+    // $('#exampleModal .modal-body #testInput').val(userId);
+    //отправить get запрос в контроллер
+    $.get("/modals/modalEditNote?id=" + noteId, function (data){
+        //вставить данные из файла html в modal window
+        $('#exampleModal').find('.modal-body').html(data);
+        // alert("data = " + data);
+    })
+});
+$('#updateBtn').click(function (){
+    $('#update').submit();
+});
+$('#deleteBtn').click(function (){
+    $('#delete').submit();
+});*/
+autosize($('textarea'));

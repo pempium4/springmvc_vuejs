@@ -1,7 +1,10 @@
 package spring.model;
 
+import javax.validation.constraints.NotEmpty;
+
 public class Note {
     private int id;
+    @NotEmpty(message = "Title cannot be empty")
     private String title;
     private String description;
 

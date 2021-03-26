@@ -1,7 +1,6 @@
 package spring.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import spring.DAO.NoteDAO;
@@ -26,32 +25,30 @@ public class MainController {
         return noteDAO.show();
     }
 
-    /*@PostMapping
-    public String create(Model model,
-                         @ModelAttribute("note") @Valid Note note,
-                         BindingResult bindingResult){
-        if(bindingResult.hasErrors()){
-            model.addAttribute("notes", noteDAO.show());
-            return "notes/show";
+    @GetMapping("/{id}")
+    public Note index(@PathVariable("id") int id){
+        return noteDAO.index(id);
+    }
+
+    @PostMapping
+    public void create(@RequestBody @Valid Note note,
+                       BindingResult bindingResult){
+        if(!bindingResult.hasErrors()){
+            noteDAO.save(note);
         }
-        noteDAO.save(note);
-        return "redirect:/notes";
     }
 
     @PatchMapping("/{id}")
-    public String update(@ModelAttribute("note") @Valid Note note,
-                         BindingResult bindingResult,
-                         @PathVariable("id") int id){
-        if(bindingResult.hasErrors()){
-            return "notes/show";
+    public void update(@RequestBody @Valid Note note,
+                         @PathVariable("id") int id,
+                       BindingResult bindingResult){
+        if(!bindingResult.hasErrors()){
+            noteDAO.update(id, note);
         }
-        noteDAO.update(id, note);
-        return "redirect:/notes";
     }
 
     @DeleteMapping("/{id}")
-    public String delete(@PathVariable("id") int id){
+    public void delete(@PathVariable("id") int id){
         noteDAO.delete(id);
-        return "redirect:/notes";
-    }*/
+    }
 }
